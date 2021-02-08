@@ -34,7 +34,7 @@ func main() {
 	body, err := ioutil.ReadAll(resp.Body) // response body is []byte
 
 	var result Response
-	if err := json.Unmarshal(body, &result); err != nil {
+	if err := json.Unmarshal(body, &result); err != nil { // Unmarshal will parse the []byte to the go struct pointer with type Response
 		fmt.Println("Can not unmarshal JSON")
 	}
 
