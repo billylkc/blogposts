@@ -1,10 +1,29 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 )
+
+type Response struct {
+	Page       int `json:"page"`
+	PerPage    int `json:"per_page"`
+	Total      int `json:"total"`
+	TotalPages int `json:"total_pages"`
+	Data       []struct {
+		ID        int    `json:"id"`
+		Email     string `json:"email"`
+		FirstName string `json:"first_name"`
+		LastName  string `json:"last_name"`
+		Avatar    string `json:"avatar"`
+	} `json:"data"`
+	Support struct {
+		URL  string `json:"url"`
+		Text string `json:"text"`
+	} `json:"support"`
+}
 
 func main() {
 	resp, err := http.Get("https://reqres.in/api/users?page=2")
@@ -13,5 +32,17 @@ func main() {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body) // response body is []byte
-	fmt.Println(string(body))              // convert to string
+
+	var result Response
+	if err := json.Unmarshal(body, &result); err != nil {
+		fmt.Println("Can not unmarshal JSON")
+	}
+
+	fmt.Println(PrettyPrint(result))
+}
+
+// PrettyPrint to print struct in a readable way
+func PrettyPrint(i interface{}) string {
+	s, _ := json.MarshalIndent(i, "", "\t")
+	return string(s)
 }
