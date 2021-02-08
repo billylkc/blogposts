@@ -38,7 +38,12 @@ func main() {
 		fmt.Println("Can not unmarshal JSON")
 	}
 
-	fmt.Println(PrettyPrint(result))
+	// fmt.Println(PrettyPrint(result))
+
+	// Loop throush the data node for the FirstName
+	for _, rec := range result.Data {
+		fmt.Println(rec.FirstName)
+	}
 }
 
 // PrettyPrint to print struct in a readable way
