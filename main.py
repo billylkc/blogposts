@@ -8,8 +8,6 @@ import io
 import pandas as pd
 import numpy as np
 import quandl
-import requests
-
 
 pd.set_option("display.max_columns", None)
 quandl.ApiConfig.api_key = os.environ["QUANDL_TOKEN"]
