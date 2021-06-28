@@ -109,10 +109,6 @@ def get_stock(num: int, nrow: int = 10) -> pd.DataFrame:
     ]  # Replace special character in column name
     col_dict = dict(zip(col_name, clean_col_name))
 
-    # Check if there is error from the call
-    if "message" in col_dict:
-        raise KeyError("Code not found - {}".format(code))
-
     data.rename(columns=col_dict, inplace=True)
     print("Finished getting code - {}".format(code))
 
@@ -124,7 +120,7 @@ def get_all_stock(nrow: int = 10) -> pd.DataFrame:
     """ Loop through the list of codes, and concat the results to a single dataframe. """
 
     codes = get_codes()
-    # codes = codes[0:20]  # Hardcorded 20 stocks for demostration
+    codes = codes[0:20]  # Hardcorded 20 stocks for demostration
 
     # Initialize result dataframe
     result = pd.DataFrame()
