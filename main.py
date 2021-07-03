@@ -43,6 +43,6 @@ def ExtractKeywords(text):
 
 
 @app.post("/keywords", response_model=Response)
-def keywords_two(p: Paragraph):
+def keywords(p: Paragraph):
     kw = ExtractKeywords(p.text)
     return Response(keywords=kw)
